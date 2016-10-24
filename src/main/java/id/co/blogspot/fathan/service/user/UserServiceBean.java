@@ -1,7 +1,7 @@
-package id.co.blogspot.fathan.service;
+package id.co.blogspot.fathan.service.user;
 
 import id.co.blogspot.fathan.entity.User;
-import id.co.blogspot.fathan.repository.UserRepository;
+import id.co.blogspot.fathan.repository.user.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

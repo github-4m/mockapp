@@ -17,6 +17,7 @@ public class User implements Serializable {
   public static final String COLUMN_MARK_FOR_DELETE = "MARK_FOR_DELETE";
   public static final String COLUMN_USERNAME = "USERNAME";
   public static final String COLUMN_PASSWORD = "PASSWORD";
+  public static final String COLUMN_NAME = "NAME";
 
   @Id
   @Column(name = User.COLUMN_ID)
@@ -28,20 +29,24 @@ public class User implements Serializable {
   @Column(name = User.COLUMN_MARK_FOR_DELETE)
   private boolean markForDelete = false;
 
-  @Column(name = User.COLUMN_USERNAME)
+  @Column(name = User.COLUMN_USERNAME, nullable = false)
   private String username;
 
-  @Column(name = User.COLUMN_PASSWORD)
+  @Column(name = User.COLUMN_PASSWORD, nullable = false)
   private String password;
+
+  @Column(name = User.COLUMN_NAME)
+  private String name;
 
   public User() {
   }
 
-  public User(String id, boolean markForDelete, String username, String password) {
+  public User(String id, boolean markForDelete, String username, String password, String name) {
     this.id = id;
     this.markForDelete = markForDelete;
     this.username = username;
     this.password = password;
+    this.name = name;
   }
 
   public String getId() {
@@ -76,6 +81,14 @@ public class User implements Serializable {
     this.password = password;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
   @Override
   public String toString() {
     return "User{" +
@@ -83,6 +96,7 @@ public class User implements Serializable {
             ", markForDelete=" + markForDelete +
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
+            ", name='" + name + '\'' +
             '}';
   }
 

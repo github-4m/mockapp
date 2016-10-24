@@ -5,7 +5,6 @@ import id.co.blogspot.fathan.security.JwtAuthenticationProcessingFilter;
 import id.co.blogspot.fathan.security.JwtAuthenticationProvider;
 import id.co.blogspot.fathan.security.JwtAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -30,7 +29,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Autowired
   private JwtAuthenticationProvider jwtAuthenticationProvider;
 
-  @Bean
   public JwtAuthenticationProcessingFilter authenticationProcessingFilter() throws Exception {
     JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter = new JwtAuthenticationProcessingFilter();
     jwtAuthenticationProcessingFilter.setAuthenticationManager(this.authenticationManager());

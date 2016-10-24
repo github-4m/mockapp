@@ -1,4 +1,4 @@
-package id.co.blogspot.fathan.repository;
+package id.co.blogspot.fathan.repository.user;
 
 import id.co.blogspot.fathan.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

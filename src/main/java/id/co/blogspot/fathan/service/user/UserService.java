@@ -1,4 +1,4 @@
-package id.co.blogspot.fathan.service;
+package id.co.blogspot.fathan.service.user;
 
 import id.co.blogspot.fathan.entity.User;
 

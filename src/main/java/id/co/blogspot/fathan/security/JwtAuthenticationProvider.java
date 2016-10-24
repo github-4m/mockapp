@@ -4,7 +4,7 @@ import id.co.blogspot.fathan.entity.User;
 import id.co.blogspot.fathan.security.exception.JwtInvalidAuthenticationTokenException;
 import id.co.blogspot.fathan.security.model.JwtAuthenticationToken;
 import id.co.blogspot.fathan.security.model.JwtUserDetails;
-import id.co.blogspot.fathan.service.UserService;
+import id.co.blogspot.fathan.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
