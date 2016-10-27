@@ -8,4 +8,5 @@ If you want to access other endpoint, please put JWT token (you get that when yo
 Features :
 <ul>
 <li>CORS Configuration: You can change CORS configuration as you want in FilterConfiguration.corsFilter() method</li>
+<li>Single Session : Last session will kicked if user call login endpoint again</li>
 </ul>
