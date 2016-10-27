@@ -2,6 +2,8 @@ package id.co.blogspot.fathan.service.user;
 
 import id.co.blogspot.fathan.entity.User;
 import id.co.blogspot.fathan.repository.user.UserRepository;
+import id.co.blogspot.fathan.service.session.SessionService;
+import id.co.blogspot.fathan.util.Credential;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.UUID;
 
 /**
  * Created by fathan.mustaqiim on 10/24/2016.
@@ -25,6 +28,9 @@ public class UserServiceBean implements UserService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private SessionService sessionService;
 
   @Value("${jwt.secret.key}")
   private String jwtSecretKey;
@@ -37,28 +43,29 @@ public class UserServiceBean implements UserService {
   }
 
   @Override
+  @Transactional(readOnly = false, rollbackFor = Exception.class)
   public String authenticate(String username, String password) throws Exception {
     String digestedPassword = this.generatePassword(password);
     User user = this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(username, digestedPassword);
     if (user == null) {
       throw new BadCredentialsException("Invalid username or password");
     }
+    this.sessionService.create(username);
     return this.generateJwtToken(user);
   }
 
   @Override
   public String generateJwtToken(User user) throws Exception {
     Claims claims = Jwts.claims().setSubject(user.getUsername());
+    claims.put("sessionId", Credential.getSessionId());
     return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, this.jwtSecretKey).compact();
   }
 
   @Override
-  public User parseJwtToken(String jwtToken) {
+  public Claims parseJwtToken(String jwtToken) {
     try {
       Claims claims = Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(jwtToken).getBody();
-      User user = new User();
-      user.setUsername(claims.getSubject());
-      return user;
+      return claims;
     } catch (JwtException | ClassCastException e) {
       return null;
     }

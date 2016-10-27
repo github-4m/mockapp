@@ -1,6 +1,7 @@
 package id.co.blogspot.fathan.service.user;
 
 import id.co.blogspot.fathan.entity.User;
+import io.jsonwebtoken.Claims;
 
 /**
  * Created by fathan.mustaqiim on 10/24/2016.
@@ -11,7 +12,7 @@ public interface UserService {
 
   String generateJwtToken(User user) throws Exception;
 
-  User parseJwtToken(String jwtToken);
+  Claims parseJwtToken(String jwtToken);
 
   void register(User user) throws Exception;
 

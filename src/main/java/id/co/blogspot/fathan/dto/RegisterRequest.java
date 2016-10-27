@@ -9,6 +9,7 @@ public class RegisterRequest implements Serializable {
 
   private String username;
   private String password;
+  private String name;
 
   public RegisterRequest() {
   }
@@ -16,6 +17,11 @@ public class RegisterRequest implements Serializable {
   public RegisterRequest(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public RegisterRequest(String username, String password, String name) {
+    this(username, password);
+    this.name = name;
   }
 
   public String getUsername() {
@@ -34,11 +40,20 @@ public class RegisterRequest implements Serializable {
     this.password = password;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
   @Override
   public String toString() {
     return "RegisterRequest{" +
             "username='" + username + '\'' +
             ", password='" + password + '\'' +
+            ", name='" + name + '\'' +
             '}';
   }
 
