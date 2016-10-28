@@ -10,6 +10,7 @@ public class Credential {
   public static final String CREDENTIAL_USERNAME = "USERNAME";
   public static final String CREDENTIAL_SESSION_ID = "SESSION_ID";
   public static final String CREDENTIAL_HOSTNAME = "HOSTNAME";
+  public static final String CREDENTIAL_REQUEST_ID = "REQUEST_ID";
 
   public static String getUsername() {
     return MDC.get(Credential.CREDENTIAL_USERNAME);
@@ -35,5 +36,12 @@ public class Credential {
     MDC.put(Credential.CREDENTIAL_HOSTNAME, hostname);
   }
 
+  public static String getRequestId() {
+    return MDC.get(Credential.CREDENTIAL_REQUEST_ID);
+  }
+
+  public static void setRequestId(String requestId) {
+    MDC.put(Credential.CREDENTIAL_REQUEST_ID, requestId);
+  }
 
 }

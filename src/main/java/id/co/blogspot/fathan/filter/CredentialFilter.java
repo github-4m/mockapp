@@ -1,6 +1,7 @@
 package id.co.blogspot.fathan.filter;
 
 import id.co.blogspot.fathan.util.Credential;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,8 +19,10 @@ public class CredentialFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                   FilterChain filterChain) throws ServletException, IOException {
-    String sessionId = UUID.randomUUID().toString();
-    Credential.setSessionId(sessionId);
+    if (StringUtils.isEmpty(Credential.getSessionId())) {
+      String sessionId = UUID.randomUUID().toString();
+      Credential.setSessionId(sessionId);
+    }
     Credential.setHostname(httpServletRequest.getRemoteHost());
     filterChain.doFilter(httpServletRequest, httpServletResponse);
   }

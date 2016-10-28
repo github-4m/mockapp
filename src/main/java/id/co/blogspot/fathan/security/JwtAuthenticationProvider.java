@@ -40,6 +40,9 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
     String jwtToken = jwtAuthenticationToken.getToken();
     Claims claims = this.userService.parseJwtToken(jwtToken);
+    if (claims == null) {
+      throw new JwtInvalidAuthenticationTokenException("Invalid JWT token");
+    }
     if (StringUtils.isEmpty(claims.getSubject())) {
       throw new JwtInvalidAuthenticationTokenException("Invalid JWT token");
     }

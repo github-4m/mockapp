@@ -37,10 +37,19 @@ public class SessionServiceBean implements SessionService {
   }
 
   @Override
-  public boolean isAuthorized() throws Exception{
+  public boolean isAuthorized() throws Exception {
     Session session = this.sessionRepository.findByUsernameAndSessionId(Credential.getUsername(), Credential
             .getSessionId());
     return session != null;
   }
 
+  @Override
+  @Transactional(readOnly = false, rollbackFor = Exception.class)
+  public void remove() throws Exception {
+    Session session = this.sessionRepository.findByUsernameAndSessionId(Credential.getUsername(), Credential
+            .getSessionId());
+    if (session != null) {
+      this.sessionRepository.delete(session.getId());
+    }
+  }
 }

@@ -82,4 +82,9 @@ public class UserServiceBean implements UserService {
     this.userRepository.save(user);
   }
 
+  @Override
+  @Transactional(readOnly = false, rollbackFor = Exception.class)
+  public void unauthenticate() throws Exception {
+    this.sessionService.remove();
+  }
 }

@@ -11,4 +11,6 @@ public interface SessionService {
 
   boolean isAuthorized() throws Exception;
 
+  void remove() throws Exception;
+
 }

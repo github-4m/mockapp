@@ -16,4 +16,6 @@ public interface UserService {
 
   void register(User user) throws Exception;
 
+  void unauthenticate() throws Exception;
+
 }

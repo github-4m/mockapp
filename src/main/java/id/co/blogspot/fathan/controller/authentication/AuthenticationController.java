@@ -35,8 +35,10 @@ public class AuthenticationController {
           request)
           throws
           Exception {
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getUsername()), AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()), AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(!StringUtils.isEmpty(request.getUsername()),
+            AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()),
+            AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
     String jwtToken = this.userService.authenticate(request.getUsername(), request.getPassword());
     return new SingleBaseResponse<String>(null, null, true, requestId, jwtToken);
   }
@@ -44,10 +46,18 @@ public class AuthenticationController {
   @RequestMapping(value = AuthenticationControllerPath.SIGNUP, method = RequestMethod.POST
           , consumes = {MediaType.APPLICATION_JSON_VALUE})
   public BaseResponse register(@RequestParam String requestId, @RequestBody RegisterRequest request) throws Exception {
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getUsername()), AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()), AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(!StringUtils.isEmpty(request.getUsername()),
+            AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()),
+            AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
     User user = this.generateUser(request);
     this.userService.register(user);
+    return new BaseResponse(null, null, true, requestId);
+  }
+
+  @RequestMapping(value = AuthenticationControllerPath.LOGOUT, method = RequestMethod.GET)
+  public BaseResponse unauthenticate(@RequestParam String requestId) throws Exception {
+    this.userService.unauthenticate();
     return new BaseResponse(null, null, true, requestId);
   }
 
