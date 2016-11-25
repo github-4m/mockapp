@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.UUID;
 
 /**
  * Created by fathan.mustaqiim on 10/24/2016.
@@ -37,9 +36,7 @@ public class UserServiceBean implements UserService {
 
   private String generatePassword(String password) throws Exception {
     MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-    String digestedPassword =
-            (new HexBinaryAdapter()).marshal(messageDigest.digest(password.getBytes(StandardCharsets.UTF_8)));
-    return digestedPassword;
+    return (new HexBinaryAdapter()).marshal(messageDigest.digest(password.getBytes(StandardCharsets.UTF_8)));
   }
 
   @Override
@@ -64,8 +61,7 @@ public class UserServiceBean implements UserService {
   @Override
   public Claims parseJwtToken(String jwtToken) {
     try {
-      Claims claims = Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(jwtToken).getBody();
-      return claims;
+      return Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(jwtToken).getBody();
     } catch (JwtException | ClassCastException e) {
       return null;
     }

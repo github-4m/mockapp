@@ -63,6 +63,7 @@ public class UserServiceTest {
     Mockito.when(this.userRepository.findByUsername(Mockito.eq(UserServiceTest.DEFAULT_USERNAME_1))).thenReturn(null);
     Mockito.when(this.userRepository.findByUsername(Mockito.eq(UserServiceTest.DEFAULT_USERNAME_2))).thenReturn(user);
     Mockito.when(this.userRepository.save((User) Mockito.anyObject())).thenReturn(null);
+    Mockito.doNothing().when(this.sessionService).remove();
   }
 
   @After
@@ -126,6 +127,12 @@ public class UserServiceTest {
       Mockito.verify(this.userRepository, UserServiceTest.NEVER_CALLED).save((User) Mockito.anyObject());
       throw e;
     }
+  }
+
+  @Test
+  public void unauthenticateTest() throws Exception {
+    this.userServiceBean.unauthenticate();
+    Mockito.verify(this.sessionService).remove();
   }
 
 }
