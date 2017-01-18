@@ -50,6 +50,10 @@ public class AuthenticationController {
             AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
     Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()),
             AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(!StringUtils.isEmpty(request.getName()), AuthenticationControllerErrorMessage
+            .NAME_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(!StringUtils.isEmpty(request.getEmail()), AuthenticationControllerErrorMessage
+            .EMAIL_MUST_NOT_BE_BLANK);
     User user = this.generateUser(request);
     this.userService.register(user);
     return new BaseResponse(null, null, true, requestId);

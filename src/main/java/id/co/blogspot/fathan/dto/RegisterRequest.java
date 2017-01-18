@@ -10,6 +10,7 @@ public class RegisterRequest implements Serializable {
   private String username;
   private String password;
   private String name;
+  private String email;
 
   public RegisterRequest() {
   }
@@ -22,6 +23,11 @@ public class RegisterRequest implements Serializable {
   public RegisterRequest(String username, String password, String name) {
     this(username, password);
     this.name = name;
+  }
+
+  public RegisterRequest(String username, String password, String name, String email) {
+    this(username, password, name);
+    this.email = email;
   }
 
   public String getUsername() {
@@ -48,13 +54,21 @@ public class RegisterRequest implements Serializable {
     this.name = name;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   @Override
   public String toString() {
     return "RegisterRequest{" +
             "username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
             '}';
   }
-
 }

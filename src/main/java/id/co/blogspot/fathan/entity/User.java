@@ -18,6 +18,7 @@ public class User implements Serializable {
   public static final String COLUMN_USERNAME = "USERNAME";
   public static final String COLUMN_PASSWORD = "PASSWORD";
   public static final String COLUMN_NAME = "NAME";
+  public static final String COLUMN_EMAIL = "EMAIL";
 
   @Id
   @Column(name = User.COLUMN_ID)
@@ -35,8 +36,11 @@ public class User implements Serializable {
   @Column(name = User.COLUMN_PASSWORD, nullable = false)
   private String password;
 
-  @Column(name = User.COLUMN_NAME)
+  @Column(name = User.COLUMN_NAME, nullable = false)
   private String name;
+
+  @Column(name = User.COLUMN_EMAIL, nullable = false)
+  private String email;
 
   public User() {
   }
@@ -47,6 +51,11 @@ public class User implements Serializable {
     this.username = username;
     this.password = password;
     this.name = name;
+  }
+
+  public User(String id, boolean markForDelete, String username, String password, String name, String email) {
+    this(id, markForDelete, username, password, name);
+    this.email = email;
   }
 
   public String getId() {
@@ -89,6 +98,14 @@ public class User implements Serializable {
     this.name = name;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   @Override
   public String toString() {
     return "User{" +
@@ -97,7 +114,7 @@ public class User implements Serializable {
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
             '}';
   }
-
 }
