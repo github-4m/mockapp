@@ -2,9 +2,7 @@ package id.co.blogspot.fathan.dto;
 
 import java.io.Serializable;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 public class RegisterRequest implements Serializable {
 
   private String username;
@@ -12,8 +10,7 @@ public class RegisterRequest implements Serializable {
   private String name;
   private String email;
 
-  public RegisterRequest() {
-  }
+  public RegisterRequest() {}
 
   public RegisterRequest(String username, String password) {
     this.username = username;
@@ -64,11 +61,19 @@ public class RegisterRequest implements Serializable {
 
   @Override
   public String toString() {
-    return "RegisterRequest{" +
-            "username='" + username + '\'' +
-            ", password='" + password + '\'' +
-            ", name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            '}';
+    return "RegisterRequest{"
+        + "username='"
+        + username
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + '}';
   }
 }

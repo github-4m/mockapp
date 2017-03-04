@@ -5,16 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 public class JwtUserDetails implements UserDetails {
 
   private String username;
   private String token;
 
-  public JwtUserDetails() {
-  }
+  public JwtUserDetails() {}
 
   public JwtUserDetails(String username, String token) {
     this.username = username;
@@ -59,5 +56,4 @@ public class JwtUserDetails implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
-
 }

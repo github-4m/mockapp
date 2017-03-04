@@ -8,15 +8,14 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-/**
- * Created by fathan.mustaqiim on 10/27/2016.
- */
+/** Created by fathan.mustaqiim on 10/27/2016. */
 @Configuration
 public class FilterConfiguration {
 
   @Bean
   public FilterRegistrationBean corsFilter() {
-    UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+    UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource =
+        new UrlBasedCorsConfigurationSource();
     CorsConfiguration corsConfiguration = new CorsConfiguration();
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.addAllowedOrigin("*");
@@ -36,5 +35,4 @@ public class FilterConfiguration {
     filterRegistrationBean.setOrder(1);
     return filterRegistrationBean;
   }
-
 }

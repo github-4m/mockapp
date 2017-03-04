@@ -5,11 +5,12 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 @Entity
-@Table(name = User.TABLE_NAME, uniqueConstraints = {@UniqueConstraint(columnNames = {User.COLUMN_USERNAME})})
+@Table(
+  name = User.TABLE_NAME,
+  uniqueConstraints = {@UniqueConstraint(columnNames = {User.COLUMN_USERNAME})}
+)
 public class User implements Serializable {
 
   public static final String TABLE_NAME = "JWT_USER";
@@ -42,8 +43,7 @@ public class User implements Serializable {
   @Column(name = User.COLUMN_EMAIL, nullable = false)
   private String email;
 
-  public User() {
-  }
+  public User() {}
 
   public User(String id, boolean markForDelete, String username, String password, String name) {
     this.id = id;
@@ -53,7 +53,13 @@ public class User implements Serializable {
     this.name = name;
   }
 
-  public User(String id, boolean markForDelete, String username, String password, String name, String email) {
+  public User(
+      String id,
+      boolean markForDelete,
+      String username,
+      String password,
+      String name,
+      String email) {
     this(id, markForDelete, username, password, name);
     this.email = email;
   }
@@ -108,13 +114,24 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return "User{" +
-            "id='" + id + '\'' +
-            ", markForDelete=" + markForDelete +
-            ", username='" + username + '\'' +
-            ", password='" + password + '\'' +
-            ", name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            '}';
+    return "User{"
+        + "id='"
+        + id
+        + '\''
+        + ", markForDelete="
+        + markForDelete
+        + ", username='"
+        + username
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + '}';
   }
 }

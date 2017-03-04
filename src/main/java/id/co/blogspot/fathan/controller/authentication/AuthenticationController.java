@@ -13,15 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 @RestController
 @RequestMapping(value = AuthenticationControllerPath.BASE_PATH)
 public class AuthenticationController {
 
-  @Autowired
-  private UserService userService;
+  @Autowired private UserService userService;
 
   private User generateUser(RegisterRequest request) throws Exception {
     User user = new User();
@@ -29,31 +26,42 @@ public class AuthenticationController {
     return user;
   }
 
-  @RequestMapping(value = AuthenticationControllerPath.LOGIN, method = RequestMethod.POST
-          , consumes = {MediaType.APPLICATION_JSON_VALUE})
-  public SingleBaseResponse<String> authenticate(@RequestParam String requestId, @RequestBody AuthenticateRequest
-          request)
-          throws
-          Exception {
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getUsername()),
-            AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()),
-            AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
+  @RequestMapping(
+    value = AuthenticationControllerPath.LOGIN,
+    method = RequestMethod.POST,
+    consumes = {MediaType.APPLICATION_JSON_VALUE}
+  )
+  public SingleBaseResponse<String> authenticate(
+      @RequestParam String requestId, @RequestBody AuthenticateRequest request) throws Exception {
+    Precondition.checkArgument(
+        !StringUtils.isEmpty(request.getUsername()),
+        AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(
+        !StringUtils.isEmpty(request.getPassword()),
+        AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
     String jwtToken = this.userService.authenticate(request.getUsername(), request.getPassword());
     return new SingleBaseResponse<String>(null, null, true, requestId, jwtToken);
   }
 
-  @RequestMapping(value = AuthenticationControllerPath.SIGNUP, method = RequestMethod.POST
-          , consumes = {MediaType.APPLICATION_JSON_VALUE})
-  public BaseResponse register(@RequestParam String requestId, @RequestBody RegisterRequest request) throws Exception {
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getUsername()),
-            AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getPassword()),
-            AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getName()), AuthenticationControllerErrorMessage
-            .NAME_MUST_NOT_BE_BLANK);
-    Precondition.checkArgument(!StringUtils.isEmpty(request.getEmail()), AuthenticationControllerErrorMessage
-            .EMAIL_MUST_NOT_BE_BLANK);
+  @RequestMapping(
+    value = AuthenticationControllerPath.SIGNUP,
+    method = RequestMethod.POST,
+    consumes = {MediaType.APPLICATION_JSON_VALUE}
+  )
+  public BaseResponse register(@RequestParam String requestId, @RequestBody RegisterRequest request)
+      throws Exception {
+    Precondition.checkArgument(
+        !StringUtils.isEmpty(request.getUsername()),
+        AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(
+        !StringUtils.isEmpty(request.getPassword()),
+        AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(
+        !StringUtils.isEmpty(request.getName()),
+        AuthenticationControllerErrorMessage.NAME_MUST_NOT_BE_BLANK);
+    Precondition.checkArgument(
+        !StringUtils.isEmpty(request.getEmail()),
+        AuthenticationControllerErrorMessage.EMAIL_MUST_NOT_BE_BLANK);
     User user = this.generateUser(request);
     this.userService.register(user);
     return new BaseResponse(null, null, true, requestId);
@@ -64,5 +72,4 @@ public class AuthenticationController {
     this.userService.unauthenticate();
     return new BaseResponse(null, null, true, requestId);
   }
-
 }

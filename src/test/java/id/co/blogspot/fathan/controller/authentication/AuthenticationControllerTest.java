@@ -14,12 +14,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.verification.VerificationMode;
 
-import java.lang.reflect.Constructor;
 import java.util.UUID;
 
-/**
- * Created by fathan.mustaqiim on 10/28/2016.
- */
+/** Created by fathan.mustaqiim on 10/28/2016. */
 public class AuthenticationControllerTest {
 
   private static final String DEFAULT_USERNAME_1 = "DEVELOPER";
@@ -29,11 +26,9 @@ public class AuthenticationControllerTest {
   private static final String DEFAULT_REQUEST_ID = UUID.randomUUID().toString();
   private static final VerificationMode NEVER_CALLED = Mockito.times(0);
 
-  @Mock
-  private UserService userService;
+  @Mock private UserService userService;
 
-  @InjectMocks
-  private AuthenticationController authenticationController;
+  @InjectMocks private AuthenticationController authenticationController;
 
   private AuthenticateRequest generateAuthenticateRequest() throws Exception {
     AuthenticateRequest authenticateRequest = new AuthenticateRequest();
@@ -54,7 +49,8 @@ public class AuthenticationControllerTest {
   @Before
   public void initializeTest() throws Exception {
     MockitoAnnotations.initMocks(this);
-    Mockito.when(this.userService.authenticate(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+    Mockito.when(this.userService.authenticate(Mockito.anyString(), Mockito.anyString()))
+        .thenReturn(null);
     Mockito.doNothing().when(this.userService).register((User) Mockito.anyObject());
     Mockito.doNothing().when(this.userService).unauthenticate();
   }
@@ -67,7 +63,8 @@ public class AuthenticationControllerTest {
   @Test
   public void authenticateTest() throws Exception {
     AuthenticateRequest request = this.generateAuthenticateRequest();
-    this.authenticationController.authenticate(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+    this.authenticationController.authenticate(
+        AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     Mockito.verify(this.userService).authenticate(Mockito.anyString(), Mockito.anyString());
   }
 
@@ -76,12 +73,13 @@ public class AuthenticationControllerTest {
     AuthenticateRequest request = this.generateAuthenticateRequest();
     request.setUsername(null);
     try {
-      this.authenticationController.authenticate(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+      this.authenticationController.authenticate(
+          AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     } catch (Exception e) {
-      Assert.assertEquals(AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK, e.getMessage());
+      Assert.assertEquals(
+          AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK, e.getMessage());
       Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED)
-              .authenticate(Mockito.anyString(), Mockito
-                      .anyString());
+          .authenticate(Mockito.anyString(), Mockito.anyString());
       throw e;
     }
   }
@@ -91,12 +89,13 @@ public class AuthenticationControllerTest {
     AuthenticateRequest request = this.generateAuthenticateRequest();
     request.setPassword(null);
     try {
-      this.authenticationController.authenticate(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+      this.authenticationController.authenticate(
+          AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     } catch (Exception e) {
-      Assert.assertEquals(AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK, e.getMessage());
+      Assert.assertEquals(
+          AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK, e.getMessage());
       Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED)
-              .authenticate(Mockito.anyString(), Mockito
-                      .anyString());
+          .authenticate(Mockito.anyString(), Mockito.anyString());
       throw e;
     }
   }
@@ -104,7 +103,8 @@ public class AuthenticationControllerTest {
   @Test
   public void registerTest() throws Exception {
     RegisterRequest request = this.generateRegisterRequest();
-    this.authenticationController.register(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+    this.authenticationController.register(
+        AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     Mockito.verify(this.userService).register((User) Mockito.anyObject());
   }
 
@@ -113,10 +113,13 @@ public class AuthenticationControllerTest {
     RegisterRequest request = this.generateRegisterRequest();
     request.setUsername(null);
     try {
-      this.authenticationController.register(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+      this.authenticationController.register(
+          AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     } catch (Exception e) {
-      Assert.assertEquals(AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK, e.getMessage());
-      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED).register((User) Mockito.anyObject());
+      Assert.assertEquals(
+          AuthenticationControllerErrorMessage.USERNAME_MUST_NOT_BE_BLANK, e.getMessage());
+      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED)
+          .register((User) Mockito.anyObject());
       throw e;
     }
   }
@@ -126,10 +129,13 @@ public class AuthenticationControllerTest {
     RegisterRequest request = this.generateRegisterRequest();
     request.setPassword(null);
     try {
-      this.authenticationController.register(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+      this.authenticationController.register(
+          AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     } catch (Exception e) {
-      Assert.assertEquals(AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK, e.getMessage());
-      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED).register((User) Mockito.anyObject());
+      Assert.assertEquals(
+          AuthenticationControllerErrorMessage.PASSWORD_MUST_NOT_BE_BLANK, e.getMessage());
+      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED)
+          .register((User) Mockito.anyObject());
       throw e;
     }
   }
@@ -139,10 +145,13 @@ public class AuthenticationControllerTest {
     RegisterRequest request = this.generateRegisterRequest();
     request.setName(null);
     try {
-      this.authenticationController.register(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+      this.authenticationController.register(
+          AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     } catch (Exception e) {
-      Assert.assertEquals(AuthenticationControllerErrorMessage.NAME_MUST_NOT_BE_BLANK, e.getMessage());
-      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED).register((User) Mockito.anyObject());
+      Assert.assertEquals(
+          AuthenticationControllerErrorMessage.NAME_MUST_NOT_BE_BLANK, e.getMessage());
+      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED)
+          .register((User) Mockito.anyObject());
       throw e;
     }
   }
@@ -152,10 +161,13 @@ public class AuthenticationControllerTest {
     RegisterRequest request = this.generateRegisterRequest();
     request.setEmail(null);
     try {
-      this.authenticationController.register(AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
+      this.authenticationController.register(
+          AuthenticationControllerTest.DEFAULT_REQUEST_ID, request);
     } catch (Exception e) {
-      Assert.assertEquals(AuthenticationControllerErrorMessage.EMAIL_MUST_NOT_BE_BLANK, e.getMessage());
-      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED).register((User) Mockito.anyObject());
+      Assert.assertEquals(
+          AuthenticationControllerErrorMessage.EMAIL_MUST_NOT_BE_BLANK, e.getMessage());
+      Mockito.verify(this.userService, AuthenticationControllerTest.NEVER_CALLED)
+          .register((User) Mockito.anyObject());
       throw e;
     }
   }
@@ -165,5 +177,4 @@ public class AuthenticationControllerTest {
     this.authenticationController.unauthenticate(AuthenticationControllerTest.DEFAULT_REQUEST_ID);
     Mockito.verify(this.userService).unauthenticate();
   }
-
 }

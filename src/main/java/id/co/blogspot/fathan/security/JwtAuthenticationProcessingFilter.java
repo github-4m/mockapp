@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
   public JwtAuthenticationProcessingFilter() {
@@ -23,9 +21,9 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
   }
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest request,
-                                              HttpServletResponse response)
-          throws AuthenticationException, IOException, ServletException {
+  public Authentication attemptAuthentication(
+      HttpServletRequest request, HttpServletResponse response)
+      throws AuthenticationException, IOException, ServletException {
     String jwtToken = request.getHeader("Authorization");
     if (StringUtils.isEmpty(jwtToken)) {
       throw new JwtInvalidAuthenticationTokenException("Invalid JWT token");
@@ -35,13 +33,18 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
   }
 
   @Override
-  protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
+  protected boolean requiresAuthentication(
+      HttpServletRequest request, HttpServletResponse response) {
     return true;
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-                                          Authentication authResult) throws IOException, ServletException {
+  protected void successfulAuthentication(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      FilterChain chain,
+      Authentication authResult)
+      throws IOException, ServletException {
     super.successfulAuthentication(request, response, chain, authResult);
     chain.doFilter(request, response);
   }

@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
   @Override
-  public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-                                      Authentication authentication) throws IOException, ServletException {
-  }
-
+  public void onAuthenticationSuccess(
+      HttpServletRequest httpServletRequest,
+      HttpServletResponse httpServletResponse,
+      Authentication authentication)
+      throws IOException, ServletException {}
 }

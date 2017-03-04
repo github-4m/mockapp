@@ -15,24 +15,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  @Autowired private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-  @Autowired
-  private JwtAuthenticationProvider jwtAuthenticationProvider;
+  @Autowired private JwtAuthenticationProvider jwtAuthenticationProvider;
 
   public JwtAuthenticationProcessingFilter authenticationProcessingFilter() throws Exception {
-    JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter = new JwtAuthenticationProcessingFilter();
+    JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter =
+        new JwtAuthenticationProcessingFilter();
     jwtAuthenticationProcessingFilter.setAuthenticationManager(this.authenticationManager());
-    jwtAuthenticationProcessingFilter.setAuthenticationSuccessHandler(new JwtAuthenticationSuccessHandler());
+    jwtAuthenticationProcessingFilter.setAuthenticationSuccessHandler(
+        new JwtAuthenticationSuccessHandler());
     return jwtAuthenticationProcessingFilter;
   }
 
@@ -43,15 +41,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/api/login", "/api/signup");
+    web.ignoring()
+        .antMatchers(
+            "/api/login",
+            "/api/signup",
+            "/swagger-ui*",
+            "/webjars/springfox-swagger-ui/**",
+            "/swagger-resources/**",
+            "/v2/**",
+            "favicon.ico");
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().exceptionHandling()
-            .authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    http.addFilterBefore(this.authenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+    http.csrf()
+        .disable()
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .exceptionHandling()
+        .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.addFilterBefore(
+        this.authenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     http.headers().cacheControl();
   }
 }

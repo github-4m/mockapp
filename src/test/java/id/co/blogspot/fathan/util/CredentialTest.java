@@ -5,9 +5,7 @@ import org.junit.Test;
 import java.lang.reflect.Constructor;
 import java.util.UUID;
 
-/**
- * Created by fathan.mustaqiim on 11/25/2016.
- */
+/** Created by fathan.mustaqiim on 11/25/2016. */
 public class CredentialTest {
 
   private static final String DEFAULT_HOSTNAME = "HOSTNAME";
@@ -30,5 +28,4 @@ public class CredentialTest {
   public void getterTest() throws Exception {
     Credential.getRequestId();
   }
-
 }

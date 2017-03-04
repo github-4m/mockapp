@@ -1,16 +1,14 @@
 package id.co.blogspot.fathan.dto;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 public class SingleBaseResponse<T> extends BaseResponse {
 
   private T value;
 
-  public SingleBaseResponse() {
-  }
+  public SingleBaseResponse() {}
 
-  public SingleBaseResponse(String errorMessage, String errorCode, boolean success, String requestId, T value) {
+  public SingleBaseResponse(
+      String errorMessage, String errorCode, boolean success, String requestId, T value) {
     super(errorMessage, errorCode, success, requestId);
     this.value = value;
   }
@@ -25,9 +23,6 @@ public class SingleBaseResponse<T> extends BaseResponse {
 
   @Override
   public String toString() {
-    return "SingleBaseResponse{" +
-            "value=" + value +
-            '}';
+    return "SingleBaseResponse{" + "value=" + value + '}';
   }
-
 }

@@ -18,32 +18,31 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
-/**
- * Created by fathan.mustaqiim on 10/24/2016.
- */
+/** Created by fathan.mustaqiim on 10/24/2016. */
 @Service
 @Transactional(readOnly = true)
 public class UserServiceBean implements UserService {
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
-  @Autowired
-  private SessionService sessionService;
+  @Autowired private SessionService sessionService;
 
   @Value("${jwt.secret.key}")
   private String jwtSecretKey;
 
   private String generatePassword(String password) throws Exception {
     MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-    return (new HexBinaryAdapter()).marshal(messageDigest.digest(password.getBytes(StandardCharsets.UTF_8)));
+    return (new HexBinaryAdapter())
+        .marshal(messageDigest.digest(password.getBytes(StandardCharsets.UTF_8)));
   }
 
   @Override
   @Transactional(readOnly = false, rollbackFor = Exception.class)
   public String authenticate(String username, String password) throws Exception {
     String digestedPassword = this.generatePassword(password);
-    User user = this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(username, digestedPassword);
+    User user =
+        this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(
+            username, digestedPassword);
     if (user == null) {
       throw new BadCredentialsException("Invalid username or password");
     }
@@ -55,7 +54,10 @@ public class UserServiceBean implements UserService {
   public String generateJwtToken(User user) throws Exception {
     Claims claims = Jwts.claims().setSubject(user.getUsername());
     claims.put("sessionId", Credential.getSessionId());
-    return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, this.jwtSecretKey).compact();
+    return Jwts.builder()
+        .setClaims(claims)
+        .signWith(SignatureAlgorithm.HS512, this.jwtSecretKey)
+        .compact();
   }
 
   @Override
