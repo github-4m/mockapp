@@ -4,6 +4,7 @@ import id.co.blogspot.fathan.entity.User;
 import id.co.blogspot.fathan.repository.user.UserRepository;
 import id.co.blogspot.fathan.service.session.SessionService;
 import id.co.blogspot.fathan.util.Credential;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +16,9 @@ import org.mockito.verification.VerificationMode;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.UUID;
-
-/** Created by fathan.mustaqiim on 10/27/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/27/2016.
+ */
 public class UserServiceTest {
 
   private static final String DEFAULT_USERNAME_1 = "DEVELOPER";
@@ -26,11 +27,14 @@ public class UserServiceTest {
   private static final String DEFAULT_SESSION_ID_1 = UUID.randomUUID().toString();
   private static final VerificationMode NEVER_CALLED = Mockito.times(0);
 
-  @Mock private UserRepository userRepository;
+  @Mock
+  private UserRepository userRepository;
 
-  @Mock private SessionService sessionService;
+  @Mock
+  private SessionService sessionService;
 
-  @InjectMocks private UserServiceBean userServiceBean;
+  @InjectMocks
+  private UserServiceBean userServiceBean;
 
   private String jwtToken;
 
@@ -52,12 +56,12 @@ public class UserServiceTest {
     Credential.setSessionId(UserServiceTest.DEFAULT_SESSION_ID_1);
     this.jwtToken = this.userServiceBean.generateJwtToken(user);
     Mockito.when(
-            this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(
-                Mockito.eq(UserServiceTest.DEFAULT_USERNAME_1), Mockito.anyString()))
+        this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(
+            Mockito.eq(UserServiceTest.DEFAULT_USERNAME_1), Mockito.anyString()))
         .thenReturn(user);
     Mockito.when(
-            this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(
-                Mockito.eq(UserServiceTest.DEFAULT_USERNAME_2), Mockito.anyString()))
+        this.userRepository.findByUsernameAndPasswordAndMarkForDeleteFalse(
+            Mockito.eq(UserServiceTest.DEFAULT_USERNAME_2), Mockito.anyString()))
         .thenReturn(null);
     Mockito.doNothing().when(this.sessionService).create(Mockito.anyString());
     Mockito.when(this.userRepository.findByUsername(Mockito.eq(UserServiceTest.DEFAULT_USERNAME_1)))

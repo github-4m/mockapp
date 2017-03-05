@@ -2,7 +2,9 @@ package id.co.blogspot.fathan.dto;
 
 import java.io.Serializable;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public class BaseResponse implements Serializable {
 
   private String errorMessage;
@@ -10,7 +12,8 @@ public class BaseResponse implements Serializable {
   private boolean success = false;
   private String requestId;
 
-  public BaseResponse() {}
+  public BaseResponse() {
+  }
 
   public BaseResponse(String errorMessage, String errorCode, boolean success, String requestId) {
     this.errorMessage = errorMessage;

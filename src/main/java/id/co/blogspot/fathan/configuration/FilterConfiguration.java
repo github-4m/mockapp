@@ -8,7 +8,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-/** Created by fathan.mustaqiim on 10/27/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/27/2016.
+ */
 @Configuration
 public class FilterConfiguration {
 

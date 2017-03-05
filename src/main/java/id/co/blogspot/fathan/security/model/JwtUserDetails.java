@@ -1,17 +1,19 @@
 package id.co.blogspot.fathan.security.model;
 
+import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public class JwtUserDetails implements UserDetails {
 
   private String username;
   private String token;
 
-  public JwtUserDetails() {}
+  public JwtUserDetails() {
+  }
 
   public JwtUserDetails(String username, String token) {
     this.username = username;

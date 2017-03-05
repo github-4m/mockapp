@@ -2,13 +2,16 @@ package id.co.blogspot.fathan.dto;
 
 import java.io.Serializable;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public class AuthenticateRequest implements Serializable {
 
   private String username;
   private String password;
 
-  public AuthenticateRequest() {}
+  public AuthenticateRequest() {
+  }
 
   public AuthenticateRequest(String username, String password) {
     this.username = username;

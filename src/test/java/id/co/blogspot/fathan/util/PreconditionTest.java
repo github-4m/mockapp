@@ -1,10 +1,11 @@
 package id.co.blogspot.fathan.util;
 
+import java.lang.reflect.Constructor;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-
-/** Created by fathan.mustaqiim on 11/25/2016. */
+/**
+ * Created by fathan.mustaqiim on 11/25/2016.
+ */
 public class PreconditionTest {
 
   @Test

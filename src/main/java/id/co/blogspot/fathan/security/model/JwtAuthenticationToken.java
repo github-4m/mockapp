@@ -2,7 +2,9 @@ package id.co.blogspot.fathan.security.model;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
   private String token;

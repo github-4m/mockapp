@@ -1,15 +1,21 @@
 package id.co.blogspot.fathan.entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 @Entity
 @Table(
-  name = User.TABLE_NAME,
-  uniqueConstraints = {@UniqueConstraint(columnNames = {User.COLUMN_USERNAME})}
+    name = User.TABLE_NAME,
+    uniqueConstraints = {@UniqueConstraint(columnNames = {User.COLUMN_USERNAME})}
 )
 public class User implements Serializable {
 
@@ -43,7 +49,8 @@ public class User implements Serializable {
   @Column(name = User.COLUMN_EMAIL, nullable = false)
   private String email;
 
-  public User() {}
+  public User() {
+  }
 
   public User(String id, boolean markForDelete, String username, String password, String name) {
     this.id = id;

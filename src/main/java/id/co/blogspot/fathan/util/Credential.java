@@ -2,7 +2,9 @@ package id.co.blogspot.fathan.util;
 
 import org.slf4j.MDC;
 
-/** Created by fathan.mustaqiim on 10/27/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/27/2016.
+ */
 public final class Credential {
 
   public static final String CREDENTIAL_USERNAME = "USERNAME";
@@ -10,7 +12,8 @@ public final class Credential {
   public static final String CREDENTIAL_HOSTNAME = "HOSTNAME";
   public static final String CREDENTIAL_REQUEST_ID = "REQUEST_ID";
 
-  private Credential() {}
+  private Credential() {
+  }
 
   public static String getUsername() {
     return MDC.get(Credential.CREDENTIAL_USERNAME);

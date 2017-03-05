@@ -11,14 +11,21 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 @RestController
 @RequestMapping(value = AuthenticationControllerPath.BASE_PATH)
 public class AuthenticationController {
 
-  @Autowired private UserService userService;
+  @Autowired
+  private UserService userService;
 
   private User generateUser(RegisterRequest request) throws Exception {
     User user = new User();
@@ -27,9 +34,9 @@ public class AuthenticationController {
   }
 
   @RequestMapping(
-    value = AuthenticationControllerPath.LOGIN,
-    method = RequestMethod.POST,
-    consumes = {MediaType.APPLICATION_JSON_VALUE}
+      value = AuthenticationControllerPath.LOGIN,
+      method = RequestMethod.POST,
+      consumes = {MediaType.APPLICATION_JSON_VALUE}
   )
   public SingleBaseResponse<String> authenticate(
       @RequestParam String requestId, @RequestBody AuthenticateRequest request) throws Exception {
@@ -44,9 +51,9 @@ public class AuthenticationController {
   }
 
   @RequestMapping(
-    value = AuthenticationControllerPath.SIGNUP,
-    method = RequestMethod.POST,
-    consumes = {MediaType.APPLICATION_JSON_VALUE}
+      value = AuthenticationControllerPath.SIGNUP,
+      method = RequestMethod.POST,
+      consumes = {MediaType.APPLICATION_JSON_VALUE}
   )
   public BaseResponse register(@RequestParam String requestId, @RequestBody RegisterRequest request)
       throws Exception {

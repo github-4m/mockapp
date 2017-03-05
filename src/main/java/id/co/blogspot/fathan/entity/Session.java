@@ -1,15 +1,21 @@
 package id.co.blogspot.fathan.entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
-/** Created by fathan.mustaqiim on 10/27/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/27/2016.
+ */
 @Entity
 @Table(
-  name = Session.TABLE_NAME,
-  uniqueConstraints = {@UniqueConstraint(columnNames = {Session.COLUMN_USERNAME})}
+    name = Session.TABLE_NAME,
+    uniqueConstraints = {@UniqueConstraint(columnNames = {Session.COLUMN_USERNAME})}
 )
 public class Session implements Serializable {
 
@@ -35,7 +41,8 @@ public class Session implements Serializable {
   @Column(name = Session.COLUMN_HOSTNAME, nullable = false)
   private String hostname;
 
-  public Session() {}
+  public Session() {
+  }
 
   public Session(String id, String username, String sessionId, String hostname) {
     this.id = id;

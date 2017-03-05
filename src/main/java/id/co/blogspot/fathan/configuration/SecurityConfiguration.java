@@ -15,15 +15,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  @Autowired
+  private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-  @Autowired private JwtAuthenticationProvider jwtAuthenticationProvider;
+  @Autowired
+  private JwtAuthenticationProvider jwtAuthenticationProvider;
 
   public JwtAuthenticationProcessingFilter authenticationProcessingFilter() throws Exception {
     JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter =
@@ -48,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/swagger-ui*",
             "/webjars/springfox-swagger-ui/**",
             "/swagger-resources/**",
-            "/v2/**",
+            "/v2/api-docs",
             "favicon.ico");
   }
 

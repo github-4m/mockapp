@@ -1,11 +1,14 @@
 package id.co.blogspot.fathan.dto;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public class SingleBaseResponse<T> extends BaseResponse {
 
   private T value;
 
-  public SingleBaseResponse() {}
+  public SingleBaseResponse() {
+  }
 
   public SingleBaseResponse(
       String errorMessage, String errorCode, boolean success, String requestId, T value) {

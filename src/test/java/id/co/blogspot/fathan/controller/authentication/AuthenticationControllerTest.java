@@ -4,6 +4,7 @@ import id.co.blogspot.fathan.dto.AuthenticateRequest;
 import id.co.blogspot.fathan.dto.RegisterRequest;
 import id.co.blogspot.fathan.entity.User;
 import id.co.blogspot.fathan.service.user.UserService;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,9 +15,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.verification.VerificationMode;
 
-import java.util.UUID;
-
-/** Created by fathan.mustaqiim on 10/28/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/28/2016.
+ */
 public class AuthenticationControllerTest {
 
   private static final String DEFAULT_USERNAME_1 = "DEVELOPER";
@@ -26,9 +27,11 @@ public class AuthenticationControllerTest {
   private static final String DEFAULT_REQUEST_ID = UUID.randomUUID().toString();
   private static final VerificationMode NEVER_CALLED = Mockito.times(0);
 
-  @Mock private UserService userService;
+  @Mock
+  private UserService userService;
 
-  @InjectMocks private AuthenticationController authenticationController;
+  @InjectMocks
+  private AuthenticationController authenticationController;
 
   private AuthenticateRequest generateAuthenticateRequest() throws Exception {
     AuthenticateRequest authenticateRequest = new AuthenticateRequest();

@@ -3,7 +3,9 @@ package id.co.blogspot.fathan.service.user;
 import id.co.blogspot.fathan.entity.User;
 import io.jsonwebtoken.Claims;
 
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public interface UserService {
 
   String authenticate(String username, String password) throws Exception;

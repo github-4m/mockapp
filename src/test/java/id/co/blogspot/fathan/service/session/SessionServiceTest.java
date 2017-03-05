@@ -3,6 +3,7 @@ package id.co.blogspot.fathan.service.session;
 import id.co.blogspot.fathan.entity.Session;
 import id.co.blogspot.fathan.repository.session.SessionRepository;
 import id.co.blogspot.fathan.util.Credential;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +13,20 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.verification.VerificationMode;
 
-import java.util.UUID;
-
-/** Created by fathan.mustaqiim on 10/27/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/27/2016.
+ */
 public class SessionServiceTest {
 
   private static final String DEFAULT_USERNAME_1 = "DEVELOPER";
   private static final String DEFAULT_SESSION_ID_1 = UUID.randomUUID().toString();
   private static final VerificationMode NEVER_CALLED = Mockito.times(0);
 
-  @Mock private SessionRepository sessionRepository;
+  @Mock
+  private SessionRepository sessionRepository;
 
-  @InjectMocks private SessionServiceBean sessionServiceBean;
+  @InjectMocks
+  private SessionServiceBean sessionServiceBean;
 
   private Session generateSession() throws Exception {
     Session session = new Session();
@@ -37,12 +40,12 @@ public class SessionServiceTest {
     Credential.setUsername(SessionServiceTest.DEFAULT_USERNAME_1);
     Credential.setSessionId(SessionServiceTest.DEFAULT_SESSION_ID_1);
     Mockito.when(
-            this.sessionRepository.findByUsernameAndSessionId(
-                Mockito.anyString(), Mockito.anyString()))
+        this.sessionRepository.findByUsernameAndSessionId(
+            Mockito.anyString(), Mockito.anyString()))
         .thenReturn(session);
     Mockito.when(
-            this.sessionRepository.findByUsername(
-                Mockito.eq(SessionServiceTest.DEFAULT_USERNAME_1)))
+        this.sessionRepository.findByUsername(
+            Mockito.eq(SessionServiceTest.DEFAULT_USERNAME_1)))
         .thenReturn(session);
     Mockito.doNothing().when(this.sessionRepository).delete(Mockito.anyString());
     Mockito.doNothing().when(this.sessionRepository).flush();
@@ -64,8 +67,8 @@ public class SessionServiceTest {
   @Test
   public void isAuthorizedWithoutExistSessionTest() throws Exception {
     Mockito.when(
-            this.sessionRepository.findByUsernameAndSessionId(
-                Mockito.anyString(), Mockito.anyString()))
+        this.sessionRepository.findByUsernameAndSessionId(
+            Mockito.anyString(), Mockito.anyString()))
         .thenReturn(null);
     this.sessionServiceBean.isAuthorized();
     Mockito.verify(this.sessionRepository)
@@ -101,8 +104,8 @@ public class SessionServiceTest {
   @Test
   public void createWithoutExistSessionTest() throws Exception {
     Mockito.when(
-            this.sessionRepository.findByUsername(
-                Mockito.eq(SessionServiceTest.DEFAULT_USERNAME_1)))
+        this.sessionRepository.findByUsername(
+            Mockito.eq(SessionServiceTest.DEFAULT_USERNAME_1)))
         .thenReturn(null);
     this.sessionServiceBean.create(SessionServiceTest.DEFAULT_USERNAME_1);
     Mockito.verify(this.sessionRepository)
@@ -124,8 +127,8 @@ public class SessionServiceTest {
   @Test
   public void removeWithoutExistSessionTest() throws Exception {
     Mockito.when(
-            this.sessionRepository.findByUsernameAndSessionId(
-                Mockito.anyString(), Mockito.anyString()))
+        this.sessionRepository.findByUsernameAndSessionId(
+            Mockito.anyString(), Mockito.anyString()))
         .thenReturn(null);
     this.sessionServiceBean.remove();
     Mockito.verify(this.sessionRepository)

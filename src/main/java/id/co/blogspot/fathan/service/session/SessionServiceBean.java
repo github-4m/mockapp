@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-/** Created by fathan.mustaqiim on 10/27/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/27/2016.
+ */
 @Service
 @Transactional(readOnly = true)
 public class SessionServiceBean implements SessionService {
 
-  @Autowired private SessionRepository sessionRepository;
+  @Autowired
+  private SessionRepository sessionRepository;
 
   @Override
   @Transactional(readOnly = false, rollbackFor = Exception.class)

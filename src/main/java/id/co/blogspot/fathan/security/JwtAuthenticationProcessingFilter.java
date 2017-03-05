@@ -2,18 +2,19 @@ package id.co.blogspot.fathan.security;
 
 import id.co.blogspot.fathan.security.exception.JwtInvalidAuthenticationTokenException;
 import id.co.blogspot.fathan.security.model.JwtAuthenticationToken;
+import java.io.IOException;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-/** Created by fathan.mustaqiim on 10/24/2016. */
+/**
+ * Created by fathan.mustaqiim on 10/24/2016.
+ */
 public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
   public JwtAuthenticationProcessingFilter() {
