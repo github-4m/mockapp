@@ -27,8 +27,8 @@
     <swagger.version>2.6.1</swagger.version>
     <wiremock.version>2.5.1</wiremock.version>
     <flyway.version>4.1.2</flyway.version>
-    <sonar.exclusions>**/entity/**, **/dto/**, **/configuration/**, **/filter/**, **/security/**,
-      **/Application.java
+    <sonar.exclusions>**/entity/**, **/model/**, **/dto/**, **/configuration/**, **/filter/**,
+      **/security/**, **/Application.java
     </sonar.exclusions>
   </properties>
 
