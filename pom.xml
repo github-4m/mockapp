@@ -4,12 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>id.co.blogspot.fathan</groupId>
-  <artifactId>jwt-implementation</artifactId>
+  <groupId>org.mockapp</groupId>
+  <artifactId>mockapp</artifactId>
   <version>1.0.0</version>
   <packaging>war</packaging>
 
-  <name>jwt-implementation</name>
+  <name>mockapp</name>
   <description>Demo project for Spring Boot</description>
 
   <parent>
@@ -25,6 +25,8 @@
     <java.version>1.7</java.version>
     <jjwt.version>0.6.0</jjwt.version>
     <swagger.version>2.6.1</swagger.version>
+    <wiremock.version>2.5.1</wiremock.version>
+    <flyway.version>4.1.2</flyway.version>
     <sonar.exclusions>**/entity/**, **/dto/**, **/configuration/**, **/filter/**, **/security/**,
       **/Application.java
     </sonar.exclusions>
@@ -69,6 +71,16 @@
       <version>${swagger.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.github.tomakehurst</groupId>
+      <artifactId>wiremock</artifactId>
+      <version>${wiremock.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>${flyway.version}</version>
+    </dependency>
+    <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${swagger.version}</version>
@@ -76,7 +88,7 @@
   </dependencies>
 
   <build>
-    <finalName>jwt-implementation</finalName>
+    <finalName>mockapp</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
