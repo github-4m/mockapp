@@ -1,10 +1,14 @@
 package org.mockapp.service.module;
 
+import java.io.File;
 import java.util.List;
 import org.mockapp.entity.Module;
+import org.mockapp.outbound.wiremock.WiremockOutbound;
+import org.mockapp.repository.endpoint.EndpointRepository;
 import org.mockapp.repository.module.ModuleRepository;
 import org.mockapp.util.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +21,29 @@ public class ModuleServiceBean implements ModuleService {
 
   @Autowired
   private ModuleRepository moduleRepository;
+
+  @Autowired
+  private EndpointRepository endpointRepository;
+
+  @Autowired
+  private WiremockOutbound wiremockOutbound;
+
+  @Value("${wiremock.directory}")
+  private String wiremockDirectory;
+
+  private void deleteModuleDirectory(Module module) throws Exception {
+    File directory = new File(this.wiremockDirectory + "/mappings/" + module.getCode());
+    if (directory.exists()) {
+      String[] filenames = directory.list();
+      for (String filename : filenames) {
+        File file = new File(directory, filename);
+        file.delete();
+      }
+      if (directory.list().length == 0) {
+        directory.delete();
+      }
+    }
+  }
 
   @Override
   @Transactional(readOnly = false, rollbackFor = Exception.class)
@@ -58,8 +85,8 @@ public class ModuleServiceBean implements ModuleService {
       throw new Exception("Invalid code");
     }
     this.moduleRepository.deleteByCode(code);
-    // delete all endpoint related to current module
-    // remove mockup directory
-    // reset wiremock
+    this.endpointRepository.deleteByModuleCode(code);
+    this.deleteModuleDirectory(module);
+    this.wiremockOutbound.reset();
   }
 }

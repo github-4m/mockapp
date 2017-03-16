@@ -1,10 +1,12 @@
-package org.mockapp.dto;
+package org.mockapp.dto.authentication;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
 /**
  * Created by fathan.mustaqiim on 10/24/2016.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterRequest implements Serializable {
 
   private String username;

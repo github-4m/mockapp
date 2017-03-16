@@ -1,29 +1,31 @@
-package org.mockapp.model.endpoint;
+package org.mockapp.dto.endpoint;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by 4than.mustaqiim on 3/9/2017.
+ * Created by fathan.mustaqiim on 3/15/2017.
  */
-public class UpdateEndpoint implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CreateEndpointRequest implements Serializable {
 
-  private String code;
+  private String moduleCode;
   private String url;
   private RequestMethod requestMethod;
   private Set<String> requestParams = new HashSet<>();
   private Set<String> pathVariables = new HashSet<>();
   private String responseBody;
 
-  public UpdateEndpoint() {
+  public CreateEndpointRequest() {
   }
 
-  public UpdateEndpoint(String code, String url,
+  public CreateEndpointRequest(String moduleCode, String url,
       RequestMethod requestMethod, Set<String> requestParams,
       Set<String> pathVariables, String responseBody) {
-    this.code = code;
+    this.moduleCode = moduleCode;
     this.url = url;
     this.requestMethod = requestMethod;
     this.requestParams = requestParams;
@@ -31,12 +33,12 @@ public class UpdateEndpoint implements Serializable {
     this.responseBody = responseBody;
   }
 
-  public String getCode() {
-    return code;
+  public String getModuleCode() {
+    return moduleCode;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public void setModuleCode(String moduleCode) {
+    this.moduleCode = moduleCode;
   }
 
   public String getUrl() {
@@ -81,8 +83,8 @@ public class UpdateEndpoint implements Serializable {
 
   @Override
   public String toString() {
-    return "UpdateEndpoint{" +
-        "code='" + code + '\'' +
+    return "CreateEndpointRequest{" +
+        "moduleCode='" + moduleCode + '\'' +
         ", url='" + url + '\'' +
         ", requestMethod=" + requestMethod +
         ", requestParams=" + requestParams +

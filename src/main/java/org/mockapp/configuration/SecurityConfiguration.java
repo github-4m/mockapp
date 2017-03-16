@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers(
             "/api/login",
             "/api/signup",
+            "/api/endpoint/mockup/**",
             "/swagger-ui*",
             "/webjars/springfox-swagger-ui/**",
             "/swagger-resources/**",

@@ -77,8 +77,7 @@ public class HttpInvoker {
   }
 
   public String invoke(HttpMethod method, HttpServletRequest request, HttpServletResponse response,
-      String scheme,
-      String host, Integer port, String path, String requestBody) throws Exception {
+      String scheme, String host, Integer port, String path, String requestBody) throws Exception {
     URI uri = this.generateUri(this.generateParameters(request), scheme, host, port, path);
     HttpHeaders requestHeaders = this.generateRequestHeaders(request);
     HttpEntity<String> entity = new HttpEntity<String>(requestBody, requestHeaders);
