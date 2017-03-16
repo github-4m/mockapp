@@ -2,7 +2,6 @@ package org.mockapp.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.mockapp.dto.BaseResponse;
 
 /**
  * Created by fathan.mustaqiim on 3/15/2017.

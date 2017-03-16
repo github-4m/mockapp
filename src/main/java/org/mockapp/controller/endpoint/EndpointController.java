@@ -62,16 +62,20 @@ public class EndpointController {
     EndpointResponse endpointResponse = new EndpointResponse();
     BeanUtils.copyProperties(endpoint, endpointResponse,
         new String[]{"url", "requestParam", "pathVariable", "responseBody"});
-    Set<String> pathVariables = this.objectMapper
-        .readValue(String.valueOf(endpoint.getPathVariable()), new TypeReference<HashSet>() {
-        });
-    Set<String> requestParams = this.objectMapper.readValue(
-        String.valueOf(endpoint.getRequestParam()), new TypeReference<HashSet>() {
-        });
-    endpointResponse.setUrl(String.valueOf(endpoint.getUrl()));
-    endpointResponse.setPathVariables(pathVariables);
-    endpointResponse.setRequestParams(requestParams);
-    endpointResponse.setResponseBody(String.valueOf(endpoint.getResponseBody()));
+    if (endpoint.getPathVariable() != null) {
+      Set<String> pathVariables = this.objectMapper
+          .readValue(new String(endpoint.getPathVariable()), new TypeReference<HashSet>() {
+          });
+      endpointResponse.setPathVariables(pathVariables);
+    }
+    if (endpoint.getRequestParam() != null) {
+      Set<String> requestParams = this.objectMapper.readValue(
+          new String(endpoint.getRequestParam()), new TypeReference<HashSet>() {
+          });
+      endpointResponse.setRequestParams(requestParams);
+    }
+    endpointResponse.setUrl(new String(endpoint.getUrl()));
+    endpointResponse.setResponseBody(new String(endpoint.getResponseBody()));
     return endpointResponse;
   }
 

@@ -5,6 +5,6 @@ package org.mockapp.outbound.wiremock;
  */
 public interface WiremockOutboundPath {
 
-  String RESET = "__admin/mappings/reset";
+  String RESET = "/__admin/mappings/reset";
 
 }

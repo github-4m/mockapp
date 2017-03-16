@@ -1,9 +1,9 @@
 package org.mockapp.controller.authentication;
 
-import org.mockapp.dto.authentication.AuthenticateRequest;
 import org.mockapp.dto.BaseResponse;
-import org.mockapp.dto.authentication.RegisterRequest;
 import org.mockapp.dto.SingleBaseResponse;
+import org.mockapp.dto.authentication.AuthenticateRequest;
+import org.mockapp.dto.authentication.RegisterRequest;
 import org.mockapp.entity.User;
 import org.mockapp.service.user.UserService;
 import org.mockapp.util.Precondition;

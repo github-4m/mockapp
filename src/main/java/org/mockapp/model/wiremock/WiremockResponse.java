@@ -11,13 +11,12 @@ public class WiremockResponse implements Serializable {
 
   private Integer status;
   private Map<String, String> headers = new HashMap<>();
-  private WiremockResponseBody body;
+  private String body;
 
   public WiremockResponse() {
   }
 
-  public WiremockResponse(Integer status, Map<String, String> headers,
-      WiremockResponseBody body) {
+  public WiremockResponse(Integer status, Map<String, String> headers, String body) {
     this.status = status;
     this.headers = headers;
     this.body = body;
@@ -39,11 +38,11 @@ public class WiremockResponse implements Serializable {
     this.headers = headers;
   }
 
-  public WiremockResponseBody getBody() {
+  public String getBody() {
     return body;
   }
 
-  public void setBody(WiremockResponseBody body) {
+  public void setBody(String body) {
     this.body = body;
   }
 
@@ -52,7 +51,7 @@ public class WiremockResponse implements Serializable {
     return "WiremockResponse{" +
         "status=" + status +
         ", headers=" + headers +
-        ", body=" + body +
+        ", body='" + body + '\'' +
         '}';
   }
 }

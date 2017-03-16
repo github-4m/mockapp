@@ -6,6 +6,6 @@ package org.mockapp.util;
 public interface Pattern {
 
   String ANY = "(.*)";
-  String ALPHANUMERIC_UNDERSCORE_DASH = "([a-zA-Z0-9_-]*)";
+  String ALPHANUMERIC_UNDERSCORE_DASH = "([a-zA-Z0-9_-]+)";
 
 }

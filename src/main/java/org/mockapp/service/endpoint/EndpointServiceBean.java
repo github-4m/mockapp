@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +18,6 @@ import org.mockapp.entity.Module;
 import org.mockapp.model.wiremock.Wiremock;
 import org.mockapp.model.wiremock.WiremockRequest;
 import org.mockapp.model.wiremock.WiremockResponse;
-import org.mockapp.model.wiremock.WiremockResponseBody;
 import org.mockapp.outbound.wiremock.WiremockOutbound;
 import org.mockapp.repository.endpoint.EndpointRepository;
 import org.mockapp.repository.module.ModuleRepository;
@@ -28,6 +30,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by fathan.mustaqiim on 3/15/2017.
@@ -52,18 +55,18 @@ public class EndpointServiceBean implements EndpointService {
   private String wiremockDirectory;
 
   private void createEndpointFile(Module module, Endpoint endpoint) throws Exception {
-    String url = module.getContextPath() + "/" + String.valueOf(endpoint.getUrl());
+    String url = "/" + module.getContextPath() + "/" + new String(endpoint.getUrl());
     if (endpoint.getPathVariable() != null) {
       Set<String> pathVariables = this.objectMapper
-          .readValue(String.valueOf(endpoint.getPathVariable()), new TypeReference<HashSet>() {
+          .readValue(new String(endpoint.getPathVariable()), new TypeReference<HashSet>() {
           });
-      for (int i = 0; i < pathVariables.size(); i++) {
-        url += "/" + Pattern.ALPHANUMERIC_UNDERSCORE_DASH;
+      for (String pathVariable : pathVariables) {
+        url = url.replace("{" + pathVariable + "}", Pattern.ALPHANUMERIC_UNDERSCORE_DASH);
       }
     }
     if (endpoint.getRequestParam() != null) {
       Set<String> requestParams = this.objectMapper
-          .readValue(String.valueOf(endpoint.getRequestParam()), new TypeReference<HashSet>() {
+          .readValue(new String(endpoint.getRequestParam()), new TypeReference<HashSet>() {
           });
       if (!requestParams.isEmpty()) {
         url += "\\?" + Pattern.ANY;
@@ -72,15 +75,15 @@ public class EndpointServiceBean implements EndpointService {
     WiremockRequest request = new WiremockRequest();
     request.setMethod(endpoint.getRequestMethod().name());
     request.setUrlPattern(url);
-    WiremockResponseBody body = new WiremockResponseBody();
-    body.setEndpointCode(endpoint.getCode());
+    Map<String, String> responseBody = new HashMap<>();
+    responseBody.put("endpointCode", endpoint.getCode());
     if (endpoint.getResponseBody() != null) {
-      body.setBody(String.valueOf(endpoint.getResponseBody()));
+      responseBody.put("body", new String(endpoint.getResponseBody()));
     }
     WiremockResponse response = new WiremockResponse();
     response.getHeaders().put(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
     response.setStatus(200);
-    response.setBody(body);
+    response.setBody(this.objectMapper.writeValueAsString(responseBody));
     Wiremock wiremock = new Wiremock();
     wiremock.setRequest(request);
     wiremock.setResponse(response);
@@ -104,6 +107,37 @@ public class EndpointServiceBean implements EndpointService {
     if (file.exists()) {
       file.delete();
     }
+  }
+
+  private String generateData(HttpServletRequest request, String path, Module module,
+      Endpoint endpoint, String data) throws Exception {
+    if (endpoint.getPathVariable() != null) {
+      String url = path
+          .replace("/" + module.getContextPath() + "/", "");
+      String[] values = url.split("/");
+      String[] endpointValues = (new String(endpoint.getUrl())).split("/");
+      Map<String, String> uniqueValues = new HashMap<>();
+      for (int i = 0; i < endpointValues.length; i++) {
+        if (!endpointValues[i].equals(values[i])) {
+          uniqueValues.put(endpointValues[i], values[i]);
+        }
+      }
+      for (Entry<String, String> entry : uniqueValues.entrySet()) {
+        data = data.replace("$" + entry.getKey(), entry.getValue());
+      }
+    }
+    if (endpoint.getRequestParam() != null) {
+      Set<String> requestParams = this.objectMapper
+          .readValue(new String(endpoint.getRequestParam()), new TypeReference<HashSet>() {
+          });
+      for (String requestParam : requestParams) {
+        String value = request.getParameter(requestParam);
+        if (!StringUtils.isEmpty(value)) {
+          data = data.replace("$(" + requestParam + ")", value);
+        }
+      }
+    }
+    return data;
   }
 
   @Override
@@ -162,9 +196,11 @@ public class EndpointServiceBean implements EndpointService {
       String path, String requestBody) throws Exception {
     String value = this.wiremockOutbound
         .mockup(method, request, response, path, requestBody);
-    WiremockResponseBody body = this.objectMapper.readValue(value, WiremockResponseBody.class);
+    Map<String, String> responseBody = this.objectMapper
+        .readValue(value, new TypeReference<HashMap>() {
+        });
     Endpoint endpoint = this.endpointRepository
-        .findByCodeAndMarkForDeleteFalse(body.getEndpointCode());
+        .findByCodeAndMarkForDeleteFalse(responseBody.get("endpointCode"));
     if (endpoint == null) {
       throw new Exception("Unauthorized api access");
     }
@@ -175,6 +211,6 @@ public class EndpointServiceBean implements EndpointService {
     if (!module.isEnable() || !endpoint.isEnable()) {
       throw new Exception("Unauthorized api access");
     }
-    return body.getBody();
+    return this.generateData(request, path, module, endpoint, responseBody.get("body"));
   }
 }

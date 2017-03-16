@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -20,12 +21,14 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by 4than.mustaqiim on 3/9/2017.
  */
 @Entity
+@EntityListeners(value = AuditingEntityListener.class)
 @Table(name = Endpoint.TABLE_NAME)
 public class Endpoint implements Serializable {
 
