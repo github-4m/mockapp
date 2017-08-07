@@ -50,11 +50,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/api/login",
             "/api/signup",
             "/api/endpoint/mockup/**",
+            "/api/authorization/verify",
+            "/",
             "/swagger-ui*",
             "/webjars/springfox-swagger-ui/**",
             "/swagger-resources/**",
             "/v2/api-docs",
-            "favicon.ico");
+            "/favicon.ico",
+            "/ui/**",
+            "/WEB-INF/jsp/**",
+            "/css/**",
+            "/js/**",
+            "/fonts/**");
   }
 
   @Override

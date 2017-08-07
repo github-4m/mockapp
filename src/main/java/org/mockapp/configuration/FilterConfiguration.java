@@ -1,6 +1,7 @@
 package org.mockapp.configuration;
 
 import org.mockapp.filter.CredentialFilter;
+import org.mockapp.filter.RootFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,14 @@ public class FilterConfiguration {
     CredentialFilter credentialFilter = new CredentialFilter();
     FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(credentialFilter);
     filterRegistrationBean.setOrder(1);
+    return filterRegistrationBean;
+  }
+
+  @Bean
+  public FilterRegistrationBean rootFilter() {
+    RootFilter rootFilter = new RootFilter();
+    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(rootFilter);
+    filterRegistrationBean.setOrder(2);
     return filterRegistrationBean;
   }
 }

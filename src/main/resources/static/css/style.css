@@ -1,0 +1,105 @@
+body {
+  background: #f5f5f5;
+  color: #333;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 100;
+}
+/* btn section */
+.btn {
+  border-radius: 1px;
+}
+/* btn section end */
+/* loading section */
+.loading {
+  background: #000;
+  color: #fff;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2000px;
+}
+.loading-icon {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.loading-icon span {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+/* loading section end */
+/* header section */
+.header {
+  background: #fff;
+  border-bottom: 1px #ddd solid;
+}
+.header .header-container {
+  font-size: 16px;
+  padding: 15px 0px;
+}
+.header .header-block {
+  display: table;
+  width: 100%;
+}
+.header .header-logo {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  width: 50%;
+}
+.header .header-option {
+  display: table-cell;
+  font-weight: 700;
+  text-align: right;
+  vertical-align: middle;
+  width: 50%;
+}
+/* header section end */
+/* login section */
+.login .login-container {
+  margin: 0 auto;
+  width: 400px;
+}
+.login .login-container .login-form-title {
+  margin-bottom: 30px;
+  font-size: 25px;
+}
+.login .login-container .login-form {
+  background: #fff;
+  border: 1px #ddd solid;
+  border-radius: 1px;
+  margin-top: 100px;
+  padding: 25px;
+}
+.login .login-container .form-group {
+  margin-bottom: 30px;
+}
+.login .login-container label {
+  color: #337ab7;
+  font-weight: 100;
+}
+.login .login-container input {
+  border: none;
+  border-bottom: 1px #ddd solid;
+  display: block;
+  font-size: 20px;
+  padding: 5px 0px;
+  width: 100%;
+}
+.login .login-container input:focus {
+  border-bottom: 1px #337ab7 solid;
+  outline: none;
+}
+.login .login-container .btn {
+  font-size: 16px;
+  width: 100%;
+}
+.login .login-error {
+  color: #d9534f;
+  margin-bottom: 30px;
+}
+/* login section end */
