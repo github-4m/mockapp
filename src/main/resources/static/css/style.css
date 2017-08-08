@@ -5,6 +5,12 @@ body {
   font-size: 12px;
   font-weight: 100;
 }
+a {
+  color: #337ab7;
+}
+a:hover {
+  text-decoration: none;
+}
 /* btn section */
 .btn {
   border-radius: 1px;
@@ -34,10 +40,11 @@ body {
 /* loading section end */
 /* header section */
 .header {
-  background: #fff;
+  background: #24292e;
   border-bottom: 1px #ddd solid;
 }
 .header .header-container {
+  color: #fff;
   font-size: 16px;
   padding: 15px 0px;
 }
@@ -62,11 +69,19 @@ body {
 /* login section */
 .login .login-container {
   margin: 0 auto;
-  width: 400px;
+  width: 350px;
 }
 .login .login-container .login-form-title {
   margin-bottom: 30px;
   font-size: 25px;
+}
+.login .login-container .register-form {
+  background: #fff;
+  border: 1px #ddd solid;
+  border-radius: 1px;
+  margin-top: 30px;
+  padding: 25px;
+  text-align: center;
 }
 .login .login-container .login-form {
   background: #fff;
@@ -94,6 +109,9 @@ body {
   border-bottom: 1px #337ab7 solid;
   outline: none;
 }
+.login .login-container input.error {
+  border-bottom: 1px #d9534f solid;
+}
 .login .login-container .btn {
   font-size: 16px;
   width: 100%;
@@ -103,3 +121,49 @@ body {
   margin-bottom: 30px;
 }
 /* login section end */
+/* register section */
+.register .register-container {
+  margin: 0 auto;
+  width: 500px;
+}
+.register .register-container .register-form-title {
+  margin-bottom: 30px;
+  font-size: 25px;
+}
+.register .register-container .register-form {
+  background: #fff;
+  border: 1px #ddd solid;
+  border-radius: 1px;
+  margin-top: 100px;
+  padding: 25px;
+}
+.register .register-container .form-group {
+  margin-bottom: 30px;
+}
+.register .register-container label {
+  color: #337ab7;
+  font-weight: 100;
+}
+.register .register-container input {
+  border: none;
+  border-bottom: 1px #ddd solid;
+  display: block;
+  font-size: 20px;
+  padding: 5px 0px;
+  width: 100%;
+}
+.register .register-container input:focus {
+  border-bottom: 1px #337ab7 solid;
+  outline: none;
+}
+.register .register-container input.error {
+  border-bottom: 1px #d9534f solid;
+}
+.register .register-container .btn {
+  font-size: 16px;
+}
+.register .register-error {
+  color: #d9534f;
+  margin-bottom: 30px;
+}
+/* register section end */

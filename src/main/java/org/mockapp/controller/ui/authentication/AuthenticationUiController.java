@@ -18,4 +18,10 @@ public class AuthenticationUiController {
     return model;
   }
 
+  @RequestMapping(value = AuthenticationUiControllerPath.SIGNUP, method = RequestMethod.GET)
+  public ModelAndView register() throws Exception {
+    ModelAndView model = new ModelAndView("register/register");
+    return model;
+  }
+
 }

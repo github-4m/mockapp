@@ -7,5 +7,6 @@ public interface AuthenticationUiControllerPath {
 
   String BASE_PATH = "/ui";
   String LOGIN = "/login";
+  String SIGNUP = "/signup";
 
 }

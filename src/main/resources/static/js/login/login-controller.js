@@ -5,6 +5,8 @@ angular.module('login.controller').controller('loginCtrl', function($scope, Load
     $scope.password = null;
     $scope.session = null;
     $scope.errors = {
+      username: null,
+      password: null,
       authentication: null
     };
     router();
@@ -21,12 +23,28 @@ angular.module('login.controller').controller('loginCtrl', function($scope, Load
     SessionFactory.init(token);
     window.location = '/';
   }
+  // validation
+  var validateLogin = function() {
+    var valid = true;
+    if (isEmpty($scope.username)) {
+      valid = false;
+      $scope.errors.username = 'Username must not be blank';
+    }
+    if (isEmpty($scope.password)) {
+      valid = false;
+      $scope.errors.password = 'Password must not be blank';
+    }
+    return valid;
+  }
   // checker
   var isEmpty = function(value) {
     return typeof value === 'undefined' || value === null || value === '';
   }
   $scope.isEmpty = function(value) {
     return isEmpty(value);
+  }
+  $scope.isLoading = function(key) {
+    return LoadingFactory.status(key);
   }
   // data source
   var loginFactory = function(username, password) {
@@ -46,13 +64,9 @@ angular.module('login.controller').controller('loginCtrl', function($scope, Load
       LoadingFactory.decrease('login');
     });
   }
-  // checker
-  $scope.isLoading = function(key) {
-    return LoadingFactory.status(key);
-  }
   // clickable
   $scope.clickLogin = function() {
-    if (!LoadingFactory.status('login')) {
+    if (validateLogin() && !LoadingFactory.status('login')) {
       loginFactory($scope.username, $scope.password);
     }
   }
