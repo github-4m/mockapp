@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/WEB-INF/jsp/**",
             "/css/**",
             "/js/**",
-            "/fonts/**");
+            "/images/**");
   }
 
   @Override

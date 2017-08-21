@@ -1,0 +1,1 @@
+angular.module('register.app', ['security.service', 'util.service', 'register.controller', 'register.service']);
